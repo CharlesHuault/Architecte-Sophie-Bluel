@@ -114,6 +114,23 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+li, a {
+	text-decoration: none;
+}
+
+li, a:focus{
+    text-decoration: inherit;
+	color: inherit;
+}
+li, a:visited{
+	color: inherit;
+}
+
+#projets{
+	font-weight: 600;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -288,6 +305,12 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+
+footer {
+	height: 60px;
+	width: 100%;
+    background-color: #FFFFFF;
 }
 
 footer nav ul {
