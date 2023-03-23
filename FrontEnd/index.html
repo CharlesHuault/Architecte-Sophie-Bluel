@@ -11,13 +11,22 @@
 		rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/modale.css">
 	<link rel="shortcut icon" href="#">
-
+	<script src="https://kit.fontawesome.com/2e1a7fc042.js" crossorigin="anonymous"></script>
+	
 
 </head>
 
 <body>
 	<header>
+		<section id="HiddenHeader">
+		<div id="AdminHeader">
+			<i class="fa-regular fa-pen-to-square"></i><p>Mode édition</p>
+			<button>publier les changements</button>
+		</div>
+		</section>
+		<div id="UserHeader">
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
@@ -27,6 +36,7 @@
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
+		</div>
 	</header>
 	<main>
 		<section id="introduction">
@@ -48,10 +58,7 @@
 			<h2>Mes Projets</h2>
 
 			<div class="filtres">
-				<button class="btn-tous">Tous</button>
-				<button class="btn-objets">Objets</button>
-				<button class="btn-appart">Appartements</button>
-				<button class="btn-restau">Hôtels & restaurants</button>
+			
 			</div>
 
 
@@ -81,6 +88,7 @@
 		</nav>
 	</footer>
 	<script src="Works.js"></script>
+	<script src="Modale.js"></script>
 </body>
 
 </html>
