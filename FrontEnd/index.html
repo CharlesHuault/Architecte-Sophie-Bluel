@@ -10,8 +10,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/modale.css">
+	<link rel="stylesheet" href="./assets/style.css">
+	
 	<link rel="shortcut icon" href="#">
 	<script src="https://kit.fontawesome.com/2e1a7fc042.js" crossorigin="anonymous"></script>
 	
@@ -42,6 +43,7 @@
 		<section id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="">
+				<div class="HiddenMain"><p><i class="fa-regular fa-pen-to-square"></i>modifier</p></div>
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
@@ -55,8 +57,24 @@
 			</article>
 		</section>
 		<section id="portfolio">
+			<div id="titre">
 			<h2>Mes Projets</h2>
+			<div class="HiddenMain"><a href="#Modale1" class="js-modale" id="ModaleLink"><i class="fa-regular fa-pen-to-square"></i>modifier</a></div>
+			</div>
 
+			<aside id="Modale1" class="Modale" aria-hidden="true" role="dialog" aria-labelledby="TitreModale" style="display: none;">
+				<div class="contenu-modale js-stopModale">
+					<button class="js-closeModale"><i class="fa-solid fa-xmark"></i></button>
+					<h2 id="TitreModale">Galerie Photo</h2>
+
+						<div id="worksList">
+
+
+						</div>
+
+				</div>
+			</aside>
+			
 			<div class="filtres">
 			
 			</div>

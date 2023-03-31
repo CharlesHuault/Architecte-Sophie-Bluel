@@ -1,10 +1,11 @@
+/* Elements qui apparaissent si connecté en tant qu'admin */
+
 header{
     flex-direction: column;
 
 }
 
-#AdminHeader {
-       
+#AdminHeader {       
     font-family: 'Work Sans' ;
 	font-size: 14px;
     display: flex;
@@ -37,6 +38,8 @@ header{
     border-style: none;
     box-shadow: none;
     font-weight: 500;
+    font-size: 14px;
+    font-family: 'Work Sans';
 }
 
 #HiddenHeader {
@@ -47,4 +50,110 @@ header{
 
 #UserHeader {
     display: flex;
+}
+
+.HiddenMain{
+    margin-left: 30px;
+    margin-top: 15px;
+    align-items: center;
+    display: none;    
+}
+
+.HiddenMain i {
+    margin-right: 10px;
+}
+
+.HiddenMain a {
+    color: black;
+}
+#titre {
+    display: flex;
+    justify-content: center;
+    align-items: top    ;
+}
+
+#titre h2 {
+    margin-left: 100px;
+    margin-top: 10px;
+}
+
+
+/* ------------------------------------------------------*/
+/* MODALE */
+
+.Modale{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    
+}
+
+.contenu-modale{
+    overflow: auto;
+    width:630px;
+    height: 730px;
+    max-width:calc(100vh - 20px);
+    max-height:calc(100vh - 20px);
+    margin:100px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+} 
+
+#TitreModale {
+    font-family: 'Work Sans' ;
+    font-size: 26px;
+    font-weight: 400;
+    color: black;   
+    margin-bottom: 0; 
+}
+
+.js-closeModale {
+    margin: 35px 35px 15px;
+    border: none;
+    color: black;
+    align-self: flex-end;
+    min-width: 0;
+}
+
+#worksList {
+    margin-top: 1em;
+    width: 420px;
+    height: 430px;
+    border-bottom: 1px solid #B3B3B3;
+    align-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#worksList img {
+    width: 78px;
+}
+
+.buttonDelete {
+    min-width: 0;
+    width: 17px;
+    height: 17px;
+    background-color: black;
+    position: absolute;
+    border: none;
+    border-radius: 2px;
+    margin-left: 55px;
+    margin-top: 6px;
+    padding: 0px;
+}
+
+.buttonDelete i {
+    font-size: 9px;
+    color: white;
+    background-color: black;
+    display: flex;
+    justify-content: center;
 }
