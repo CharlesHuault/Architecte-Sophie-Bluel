@@ -114,13 +114,22 @@ header{
     margin-bottom: 0; 
 }
 
+#boutons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
 .js-closeModale {
-    margin: 35px 35px 15px;
+    margin: 35px ;
     border: none;
     color: black;
     align-self: flex-end;
     min-width: 0;
 }
+
+
 
 #worksList {
     margin-top: 1em;
@@ -156,4 +165,84 @@ header{
     background-color: black;
     display: flex;
     justify-content: center;
+}
+
+#ajoutPhoto {
+    margin-top: 38px;
+    background-color: #1d6154;
+    color: white;
+    width: 237px;
+    border-radius: 60px;
+    font-family: "Syne";
+    font-size: 14px;
+    align-self: center;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#suppPhoto {
+    margin-top: 23px;
+    color: #D65353;
+    border: none;
+    font-weight: 400;
+    font-family: "Syne";
+    font-size: 14px;
+}
+
+#backToList {
+    margin: 35px;
+}
+
+
+#FormAjout {
+    margin-top: 36px;
+    display: flex;
+    width: 420px;
+    height: 420px;
+    flex-direction: column;
+    align-self: center;
+    border-bottom: 1px solid #B3B3B3;
+}
+
+#photo {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    width: 420px;
+    height: 169px;
+    font-family: "Work Sans";
+    background-color:  #E8F1F7;
+    border-radius: 3px;
+
+}
+
+#photo i {
+    width: 58px;
+    height: 46px;
+    color: #B9C5CC ;
+    margin-top: 28px;
+    
+}
+
+#parcourir {
+    display: block;
+    background-color: #CBD6DC;
+    border-radius: 50px;
+    width: 173px;
+    height: 36px;
+    font-family: "Work Sans";
+    font-size: 14px;
+    font-weight: 500;
+    color: #306685;
+    border-color: #CBD6DC;
+    margin-top: 21px;
+}
+
+#photo p {
+    background-color:#E8F1F7 ;
+    margin-top: 7px;
+    font-size: 10px;
+    
 }

@@ -1,11 +1,9 @@
 let categoryFocus = -1; // définition d'une valeur de catégorie par défaut au chargement de la page
 
 // récupération des données des deux API
-const fetchWork = async () => {
-  const response = await fetch("http://localhost:5678/api/works"); // récupération données Works
-  const workData = await response.json(); // création de la variable contenant les données Works récupérées
-  const categories = await fetch("http://localhost:5678/api/categories"); // récupération données Categories
-  const categoriesData = await categories.json(); // création de la variable contenant les données Categories récupérées
+const mainFunction = async () => {
+  const workData = await fetchProjets();
+  const categoriesData = await fetchCategories(); // création de la variable contenant les données Categories récupérées
 
   const filtres = document.querySelector(".filtres"); // récupération de l'élément DOM qui accueillera les boutons de filtres
 
@@ -34,6 +32,18 @@ const fetchWork = async () => {
       filterProjects(button.dataset.id);
     });
   }
+};
+
+export const fetchProjets = async () => {
+  const response = await fetch("http://localhost:5678/api/works"); // récupération données Works
+  const workData = await response.json(); // création de la variable contenant les données Works récupérées
+  return workData;
+};
+
+export const fetchCategories = async () => {
+  const categories = await fetch("http://localhost:5678/api/categories"); // récupération données Categories
+  const categoriesData = await categories.json(); // création de la variable contenant les données Categories récupérées
+  return categoriesData;
 };
 
 const afficherAllProjets = (projets) => {
@@ -84,7 +94,7 @@ const filterProjects = (categoryId) => {
 };
 
 const workDisplay = () => {
-  fetchWork();
+  mainFunction();
 };
 
 workDisplay();
