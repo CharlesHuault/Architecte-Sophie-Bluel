@@ -63,7 +63,7 @@
 			</div>
 
 			<aside id="Modale1" class="Modale" aria-hidden="true" role="dialog" aria-labelledby="TitreModale" style="display: none;">
-				<div class="contenu-modale js-stopModale">
+				<div class="contenu-modale js-stopModale" id="contenu-modale">
 					<button class="js-closeModale"><i class="fa-solid fa-xmark"></i></button>
 					<h2 id="TitreModale">Galerie Photo</h2>
 
@@ -72,33 +72,34 @@
 
 						</div>
 
-					<a href="#Modale2" class="js-closeModale" id="ajoutPhoto" >Ajouter une photo</a>
+					<button id="ajoutPhoto" >Ajouter une photo</button>
 					<button id="suppPhoto">Supprimer la galerie</button>
 				</div>
-			</aside>
-			<aside id="Modale2" class="Modale" aria-hidden="true" role="dialog" aria-labelledby="TitreModale" style="display: none;">	
-				<div class="contenu-modale js-stopModale">
+					
+				<div class="contenu-modale2 js-stopModale" id="contenu-modale2">
 					<div id="boutons">
-					<a href="#Modale1" class="js-modale" id="backToList" ><i class="fa-solid fa-arrow-left-long"></i></a>				
+					<a href="#Modale1"  id="backToList" >	<i class="fa-solid fa-arrow-left-long"></i></a>				
 					<button class="js-closeModale"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 					<h2 id="TitreModale">Ajout photo</h2>
 						
-					<form method="post" id="FormAjout">
+					<div id="form">
+						<form method="post" id="FormAjout">
 						<div id="photo">
-							<i class="fa-sharp fa-light fa-image"></i>
+							<i class="fa-regular fa-image"></i>
 							<button id="parcourir">+ Ajouter photo</button>
 							<input type="file" id="PhotoAjout" style="display:none" name="PhotoAjout" accept=".jpg, .png"/>
 							<p>jpg, png : 4mo max</p>
 						</div>
 						<label for="TitrePhoto">Titre</label>
 						<input type="text" name="TitrePhoto" id="TitrePhoto"/>
+						<label for="Categories">Categories</label>
 						<select name="Categories" id="Categories">
 							
 						</select>
 					
-					</form>
-
+						</form>
+					</div>
 					
 				</div>
 			</aside>

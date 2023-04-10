@@ -94,7 +94,7 @@ header{
     
 }
 
-.contenu-modale{
+.contenu-modale, .contenu-modale2{
     overflow: auto;
     width:630px;
     height: 730px;
@@ -104,7 +104,12 @@ header{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    background-color: #FFFFFF;
 } 
+
+.contenu-modale2 {
+    height: 670px;
+}
 
 #TitreModale {
     font-family: 'Work Sans' ;
@@ -112,12 +117,14 @@ header{
     font-weight: 400;
     color: black;   
     margin-bottom: 0; 
+    background-color: #FFFFFF;
 }
 
 #boutons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: #FFFFFF;
 }
 
 
@@ -127,6 +134,7 @@ header{
     color: black;
     align-self: flex-end;
     min-width: 0;
+    background-color: #FFFFFF;
 }
 
 
@@ -140,10 +148,15 @@ header{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    background-color: #FFFFFF;
 }
 
 #worksList img {
     width: 78px;
+}
+
+#worksList p {
+    background-color: #FFFFFF;
 }
 
 .buttonDelete {
@@ -188,21 +201,27 @@ header{
     font-weight: 400;
     font-family: "Syne";
     font-size: 14px;
+    background-color: #FFFFFF;
 }
+
 
 #backToList {
-    margin: 35px;
+    margin: 37px;
 }
 
-
+#form{
+    display: flex;
+    justify-content: center;
+    background-color: #FFFFFF;
+}
 #FormAjout {
     margin-top: 36px;
     display: flex;
     width: 420px;
     height: 420px;
     flex-direction: column;
-    align-self: center;
     border-bottom: 1px solid #B3B3B3;
+    background-color: #FFFFFF;
 }
 
 #photo {
@@ -215,7 +234,7 @@ header{
     font-family: "Work Sans";
     background-color:  #E8F1F7;
     border-radius: 3px;
-
+    margin-bottom: 30px;
 }
 
 #photo i {
@@ -223,7 +242,9 @@ header{
     height: 46px;
     color: #B9C5CC ;
     margin-top: 28px;
-    
+    font-size: 46px;
+    text-align: center;
+    background-color: #E8F1F7;
 }
 
 #parcourir {
@@ -245,4 +266,37 @@ header{
     margin-top: 7px;
     font-size: 10px;
     
+}
+
+#TitrePhoto{
+    height: 51px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #444444;
+}
+
+#Categories {
+    height: 51px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    background-color: #FFFFFF;
+    border: none;
+    margin-top: 10px;
+    color: #444444;
+    padding-left: 16px;
+    
+}
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;  
+    background: url(/assets/icons/fleche.png);
+  
+    background-repeat: no-repeat;
+}
+
+form label {
+    background-color: #FFFFFF;
+    color: #3D3D3D;
 }

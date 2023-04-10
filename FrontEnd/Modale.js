@@ -7,6 +7,25 @@ const refreshLogOut = () => {
   sessionStorage.clear();
 };
 
+// Modification de l'affichage si compte connecté
+if (sessionStorage.getItem("token") != null) {
+  document.getElementById("login").textContent = "logout";
+  document.getElementById("login").href = "#";
+  document.getElementById("HiddenHeader").style.display = "block";
+  document.getElementsByClassName("filtres")[0].style.display = "none";
+  let hiddenMain = document.getElementsByClassName("HiddenMain");
+  for (const element of hiddenMain) {
+    element.style.display = "block";
+  }
+}
+
+const logout = document.querySelector("#login");
+
+logout.addEventListener("click", refreshLogOut);
+
+// ----------------------------------------
+// Modale
+// ----------------------------------------
 // Ouverture et Fermeture de la Modale
 const openModale = function (e) {
   e.preventDefault();
@@ -15,7 +34,7 @@ const openModale = function (e) {
   target.removeAttribute("aria-hidden");
   target.setAttribute("aria-modale", "true");
   modale = target;
-  modale.addEventListener("click", closeModale);
+  // modale.addEventListener("click", closeModale);
   modale
     .querySelector(".js-closeModale")
     .addEventListener("click", closeModale);
@@ -23,7 +42,7 @@ const openModale = function (e) {
     .querySelector(".js-stopModale")
     .addEventListener("click", stopPropagation);
 
-  mainFunction();
+  document.getElementById("contenu-modale2").style.display = "none";
 };
 
 const closeModale = function (e) {
@@ -51,26 +70,6 @@ document.querySelectorAll(".js-modale").forEach((a) => {
   a.addEventListener("click", openModale);
 });
 
-// Modification de l'affichage si compte connecté
-if (sessionStorage.getItem("token") != null) {
-  document.getElementById("login").textContent = "logout";
-  document.getElementById("login").href = "#";
-  document.getElementById("HiddenHeader").style.display = "block";
-  document.getElementsByClassName("filtres")[0].style.display = "none";
-  let hiddenMain = document.getElementsByClassName("HiddenMain");
-  for (const element of hiddenMain) {
-    element.style.display = "block";
-  }
-}
-
-const logout = document.querySelector("#login");
-
-logout.addEventListener("click", refreshLogOut);
-
-// ----------------------------------------
-// Modale
-// ----------------------------------------
-
 let modale = null;
 
 // Modale Galerie Photo
@@ -80,6 +79,8 @@ const mainFunction = async () => {
 
   displayModal(workData);
 };
+
+mainFunction();
 
 const displayModal = (works) => {
   for (let i = 0; i < works.length; i++) {
@@ -113,32 +114,20 @@ const displayModal = (works) => {
 
 // Modale Ajout Photo
 
-const modaleAjout = function (e) {
+const ajoutPhoto = document.getElementById("ajoutPhoto");
+
+ajoutPhoto.addEventListener("click", (e) => {
   e.preventDefault();
-  const target = document.querySelector(e.target.getAttribute("href"));
-  target.style.display = null;
-  target.removeAttribute("aria-hidden");
-  target.setAttribute("aria-modale", "true");
-  modale = target;
-  modale.addEventListener("click", closeModale);
-  modale
-    .querySelector(".js-closeModale")
-    .addEventListener("click", closeModale);
-  modale
-    .querySelector(".js-stopModale")
-    .addEventListener("click", stopPropagation);
-};
-
-document.querySelectorAll("#ajoutPhoto").forEach((a) => {
-  a.addEventListener("click", closeModale);
-  a.addEventListener("click", modaleAjout);
+  document.getElementById("contenu-modale").style.display = "none";
+  document.getElementById("contenu-modale2").style.display = "block";
 });
+const backToList = document.getElementById("backToList");
 
-document.querySelectorAll("#backToList").forEach((a) => {
-  a.addEventListener("click", openModale);
-  // a.addEventListener("click", closeModale);
+backToList.addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("contenu-modale").style.display = "";
+  document.getElementById("contenu-modale2").style.display = "none";
 });
-
 const categoriesData = await fetchCategories();
 const optionsCategory = document.querySelector("#Categories");
 
@@ -150,6 +139,7 @@ for (let i = 0; i < categoriesData.length; i++) {
   optionsCategory.appendChild(formCategory);
 }
 
-document.getElementById("parcourir").addEventListener("click", () => {
+document.getElementById("parcourir").addEventListener("click", (e) => {
+  e.preventDefault();
   document.getElementById("PhotoAjout").click();
 });
