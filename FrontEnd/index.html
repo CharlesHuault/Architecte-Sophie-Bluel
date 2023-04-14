@@ -64,7 +64,7 @@
 
 			<aside id="Modale1" class="Modale" aria-hidden="true" role="dialog" aria-labelledby="TitreModale" style="display: none;">
 				<div class="contenu-modale js-stopModale" id="contenu-modale">
-					<button class="js-closeModale"><i class="fa-solid fa-xmark"></i></button>
+					<button class="js-closeModale">Fermer <i class="fa-solid fa-xmark"></i></button>
 					<h2 id="TitreModale">Galerie Photo</h2>
 
 						<div id="worksList">
@@ -79,24 +79,30 @@
 				<div class="contenu-modale2 js-stopModale" id="contenu-modale2">
 					<div id="boutons">
 					<a href="#Modale1"  id="backToList" >	<i class="fa-solid fa-arrow-left-long"></i></a>				
-					<button class="js-closeModale"><i class="fa-solid fa-xmark"></i></button>
+					<button class="js-closeModale">Fermer <i class="fa-solid fa-xmark"></i></button>
 					</div>
 					<h2 id="TitreModale">Ajout photo</h2>
 						
 					<div id="form">
 						<form method="post" id="FormAjout">
 						<div id="photo">
+							<div id="prevPhoto"></div>
+							<div id="noPhoto">
 							<i class="fa-regular fa-image"></i>
 							<button id="parcourir">+ Ajouter photo</button>
-							<input type="file" id="PhotoAjout" style="display:none" name="PhotoAjout" accept=".jpg, .png"/>
+							<input type="file" id="PhotoAjout" style="display:none" name="PhotoAjout" accept=".jpg, .png" required/>
 							<p>jpg, png : 4mo max</p>
+							</div>
 						</div>
+						<div id="infoPhoto">
 						<label for="TitrePhoto">Titre</label>
-						<input type="text" name="TitrePhoto" id="TitrePhoto"/>
+						<input type="text" name="TitrePhoto" id="TitrePhoto" required/>
 						<label for="Categories">Categories</label>
-						<select name="Categories" id="Categories">
+						<select name="Categories" id="Categories" required>
 							
 						</select>
+						</div>
+						<input type="submit" value="Valider" id="subPhoto">
 					
 						</form>
 					</div>

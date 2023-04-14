@@ -209,30 +209,41 @@ header{
     margin: 37px;
 }
 
+#photo {
+    background-color: #FFFFFF;
+}
+
 #form{
     display: flex;
     justify-content: center;
     background-color: #FFFFFF;
 }
 #FormAjout {
-    margin-top: 36px;
     display: flex;
     width: 420px;
     height: 420px;
     flex-direction: column;
-    border-bottom: 1px solid #B3B3B3;
+    
     background-color: #FFFFFF;
 }
 
-#photo {
+#noPhoto {
     display: flex;
     flex-direction: column;
-    align-self: center;
     align-items: center;
     width: 420px;
     height: 169px;
     font-family: "Work Sans";
     background-color:  #E8F1F7;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+#prevPhoto {
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    background-color: #E8F1F6;
     border-radius: 3px;
     margin-bottom: 30px;
 }
@@ -275,6 +286,7 @@ header{
     margin-top: 10px;
     margin-bottom: 20px;
     color: #444444;
+    
 }
 
 #Categories {
@@ -285,18 +297,35 @@ header{
     margin-top: 10px;
     color: #444444;
     padding-left: 16px;
+    margin-bottom: 30px;
+}
+
+#infoPhoto{
+    display: flex;
+    flex-direction: column;
     
+    border-bottom: 1px solid #B3B3B3;
+    background-color: #FFFFFF;
 }
 select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;  
-    background: url(/assets/icons/fleche.png);
+    background: url(./icons/fleche.png);
   
     background-repeat: no-repeat;
+    background-position: 95% ;
 }
 
 form label {
     background-color: #FFFFFF;
     color: #3D3D3D;
+}
+
+#subPhoto {
+    width: 237px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #A7A7A7;
+    
 }

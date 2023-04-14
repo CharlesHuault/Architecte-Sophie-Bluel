@@ -75,6 +75,7 @@ const afficherAllProjets = (projets) => {
 
 const filterProjects = (categoryId) => {
   // Fonction gérant le focus des boutons filtres
+
   const btnUnfocus = document.querySelector(`[data-id="${categoryFocus}"]`);
   btnUnfocus.classList.remove("button_focus");
   const btnFocus = document.querySelector(`[data-id="${categoryId}"]`);

@@ -46,6 +46,7 @@ const openModale = function (e) {
 };
 
 const closeModale = function (e) {
+  console.log("test");
   if (modale === null) return;
   e.preventDefault();
   modale.style.display = "none";
@@ -131,11 +132,20 @@ backToList.addEventListener("click", (e) => {
 const categoriesData = await fetchCategories();
 const optionsCategory = document.querySelector("#Categories");
 
+const formOptions = document.createElement("option");
+formOptions.disabled = true;
+formOptions.selected = true;
+formOptions.value = "1";
+formOptions.text = "";
+
+optionsCategory.add(formOptions, null);
+
 for (let i = 0; i < categoriesData.length; i++) {
   const category = categoriesData[i];
   const formCategory = document.createElement("option");
   formCategory.innerText = category.name;
-  formCategory.dataset.id = category.id;
+  formCategory.dataset.categoryName = category.id;
+  // formCategory.setAttribute("value", "");
   optionsCategory.appendChild(formCategory);
 }
 
@@ -143,3 +153,28 @@ document.getElementById("parcourir").addEventListener("click", (e) => {
   e.preventDefault();
   document.getElementById("PhotoAjout").click();
 });
+
+// Prévisualisation de la photo a ajouter
+
+function imageHandler(e2) {
+  const store = document.getElementById("prevPhoto");
+  store.innerHTML = '<img src="' + e2.target.result + '">';
+  document.getElementById("noPhoto").style.display = "none";
+}
+
+function loadimage(e1) {
+  const filename = e1.target.files[0];
+  const fr = new FileReader();
+  fr.onload = imageHandler;
+  fr.readAsDataURL(filename);
+}
+
+const x = document.getElementById("PhotoAjout");
+x.addEventListener("change", loadimage, false);
+const y = document.getElementById("PhotoAjout");
+y.addEventListener("change", loadimage, false);
+
+// push de la photo à l'api
+
+// const pushPhoto = document.getElementById("subPhoto");
+// pushPhoto.addEventListener("submit");
