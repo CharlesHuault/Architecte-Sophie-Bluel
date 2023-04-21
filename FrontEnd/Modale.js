@@ -26,7 +26,10 @@ logout.addEventListener("click", refreshLogOut);
 // ----------------------------------------
 // Modale
 // ----------------------------------------
-// Ouverture et Fermeture de la Modale
+
+// ---------------------------------------------
+// Ouverture de la Modale
+
 const openModale = function (e) {
   e.preventDefault();
   const target = document.querySelector(e.target.getAttribute("href"));
@@ -35,15 +38,23 @@ const openModale = function (e) {
   target.setAttribute("aria-modale", "true");
   modale = target;
   // modale.addEventListener("click", closeModale);
-  modale
-    .querySelector(".js-closeModale")
-    .addEventListener("click", closeModale);
+  // modale
+  //   .querySelector(".js-closeModale")
+  //   .addEventListener("click", closeModale);
+  const closeButtons = modale.querySelectorAll(".js-closeModale");
+  closeButtons.forEach(function (button) {
+    button.addEventListener("click", closeModale);
+  });
+
   modale
     .querySelector(".js-stopModale")
     .addEventListener("click", stopPropagation);
 
   document.getElementById("contenu-modale2").style.display = "none";
 };
+
+// -------------------------------------------
+// Fermeture de la Modale
 
 const closeModale = function (e) {
   console.log("test");
@@ -59,6 +70,7 @@ const closeModale = function (e) {
   modale
     .querySelector(".js-stopModale")
     .removeEventListener("click", stopPropagation);
+  document.getElementById("contenu-modale").style.display = "";
 
   modale = null;
 };
@@ -73,6 +85,7 @@ document.querySelectorAll(".js-modale").forEach((a) => {
 
 let modale = null;
 
+// -------------------------------------------
 // Modale Galerie Photo
 
 const mainFunction = async () => {
@@ -99,6 +112,7 @@ const displayModal = (works) => {
     titleWorks.innerText = "éditer";
 
     const btnDelete = document.createElement("button");
+    btnDelete.setAttribute("id", fichePhoto.id);
     btnDelete.className = "buttonDelete";
 
     const logoTrash = document.createElement("i");
@@ -113,15 +127,60 @@ const displayModal = (works) => {
   }
 };
 
+// ------------------------------------------------
+// Suppression de projet
+// ------------------------------------------------
+
+// const deleteClick = document.getElementsByClassName("buttonDelete");
+
+// console.log(deleteWork);
+
+// deleteClick.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   deleteWork(e);
+// });
+
+// function deleteWork(e) {
+//   const imgId = document.querySelector("buttonDelete");
+//   imgId.getAttribute("id");
+
+//   console.log(imgId);
+
+//   fetch;
+// }
+
+btnDelete.addEventListener("click", async function () {
+  ficheWork.remove();
+
+  const response = await fetch(
+    "http://localhost:5678/api/works/${fichePhoto.id}",
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Erreur lors de la suppression");
+  }
+  console.log("Element supprimé");
+});
+
+// ------------------------------------------------
 // Modale Ajout Photo
+// ------------------------------------------------
 
 const ajoutPhoto = document.getElementById("ajoutPhoto");
 
+// Fonction affichage de la deuxième page de modale
 ajoutPhoto.addEventListener("click", (e) => {
   e.preventDefault();
   document.getElementById("contenu-modale").style.display = "none";
   document.getElementById("contenu-modale2").style.display = "block";
 });
+
+// Flèche de retour vers première page de modale
 const backToList = document.getElementById("backToList");
 
 backToList.addEventListener("click", (e) => {
@@ -129,9 +188,12 @@ backToList.addEventListener("click", (e) => {
   document.getElementById("contenu-modale").style.display = "";
   document.getElementById("contenu-modale2").style.display = "none";
 });
+
+// Récupération des catégories de travaux
 const categoriesData = await fetchCategories();
 const optionsCategory = document.querySelector("#Categories");
 
+// Création de l'option vide affichée par défaut avant sélection d'une catégorie
 const formOptions = document.createElement("option");
 formOptions.disabled = true;
 formOptions.selected = true;
@@ -140,15 +202,16 @@ formOptions.text = "";
 
 optionsCategory.add(formOptions, null);
 
+// Création de la liste correspondant aux options du "select" du formulaire
 for (let i = 0; i < categoriesData.length; i++) {
   const category = categoriesData[i];
   const formCategory = document.createElement("option");
   formCategory.innerText = category.name;
   formCategory.dataset.categoryName = category.id;
-  // formCategory.setAttribute("value", "");
   optionsCategory.appendChild(formCategory);
 }
 
+// Fonction pour ouvrir la boite de recherche du fichier a ajouter
 document.getElementById("parcourir").addEventListener("click", (e) => {
   e.preventDefault();
   document.getElementById("PhotoAjout").click();
@@ -174,7 +237,43 @@ x.addEventListener("change", loadimage, false);
 const y = document.getElementById("PhotoAjout");
 y.addEventListener("change", loadimage, false);
 
-// push de la photo à l'api
+// POST de la photo à l'api
 
-// const pushPhoto = document.getElementById("subPhoto");
-// pushPhoto.addEventListener("submit");
+let token = sessionStorage.getItem("token");
+console.log(token);
+const formElem = document.getElementById("FormAjout");
+console.log("selectionner form");
+
+formElem.onsubmit = (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+
+  formData.append("title", document.getElementById("TitrePhoto").value);
+  formData.append(
+    "image",
+    document.getElementById("PhotoAjout").files[0]
+    // document.getElementById("PhotoAjout").files[0].name
+  );
+  formData.append("category", document.getElementById("Categories").value);
+
+  console.log(formData);
+
+  fetch("http://localhost:5678/api/works/", {
+    method: "POST",
+    headers: {
+      // accept: "application/json",
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  }).then(async (res) => {
+    e.preventDefault();
+    if (res.ok) {
+      location.replace("index.html");
+      console.log("fichier envoyé");
+    } else {
+      alert("fichier refusé");
+    }
+  });
+};
