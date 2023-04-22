@@ -104,6 +104,7 @@ const displayModal = (works) => {
 
     const ficheWork = document.createElement("fichePhoto");
     ficheWork.categoryId = fichePhoto.categoryId;
+    ficheWork.className = "fichephoto";
 
     const imageWorks = document.createElement("img");
     imageWorks.src = fichePhoto.imageUrl;
@@ -116,7 +117,7 @@ const displayModal = (works) => {
     btnDelete.className = "buttonDelete";
 
     const logoTrash = document.createElement("i");
-    logoTrash.innerHTML += '<i class="fa-solid fa-trash-can"></i>';
+    logoTrash.className = "fa-solid fa-trash-can";
 
     sectionGallery.appendChild(ficheWork);
     ficheWork.appendChild(btnDelete);
@@ -131,6 +132,8 @@ const displayModal = (works) => {
 // Suppression de projet
 // ------------------------------------------------
 
+const btnTest = document.getElementsByClassName("buttonDelete");
+displayModal(btnTest.addEventListener("click", console.log("Test")));
 // const deleteClick = document.getElementsByClassName("buttonDelete");
 
 // console.log(deleteWork);
@@ -148,24 +151,32 @@ const displayModal = (works) => {
 
 //   fetch;
 // }
+// ----------------------------------------------
 
-btnDelete.addEventListener("click", async function () {
-  ficheWork.remove();
+// async function () {
+//   ficheWork.remove();
 
-  const response = await fetch(
-    "http://localhost:5678/api/works/${fichePhoto.id}",
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-  if (!response.ok) {
-    throw new Error("Erreur lors de la suppression");
-  }
-  console.log("Element supprimé");
-});
+//   const response = await fetch(
+//     "http://localhost:5678/api/works/${fichePhoto.id}",
+//     {
+//       method: "DELETE",
+//       headers: {
+//         "Content-type": "application/JSON",
+
+//         Authorization: `Bearer ${token}`,
+//       },
+//     }
+//   );
+//   if (!response.ok) {
+//     throw new Error("Erreur lors de la suppression");
+//   }
+//   console.log("Element supprimé");
+// });
+// });
+
+// document.querySelector("suppPhoto").addEventListener("click", function () {
+//   fichePhoto.remove();
+// });
 
 // ------------------------------------------------
 // Modale Ajout Photo
@@ -208,6 +219,7 @@ for (let i = 0; i < categoriesData.length; i++) {
   const formCategory = document.createElement("option");
   formCategory.innerText = category.name;
   formCategory.dataset.categoryName = category.id;
+  formCategory.value = category.id;
   optionsCategory.appendChild(formCategory);
 }
 
@@ -249,12 +261,14 @@ formElem.onsubmit = (e) => {
 
   const formData = new FormData();
 
-  formData.append("title", document.getElementById("TitrePhoto").value);
+  const newImage = document.getElementById("PhotoAjout").files[0];
   formData.append(
     "image",
-    document.getElementById("PhotoAjout").files[0]
+    newImage
     // document.getElementById("PhotoAjout").files[0].name
   );
+  formData.append("title", document.getElementById("TitrePhoto").value);
+
   formData.append("category", document.getElementById("Categories").value);
 
   console.log(formData);
@@ -262,8 +276,6 @@ formElem.onsubmit = (e) => {
   fetch("http://localhost:5678/api/works/", {
     method: "POST",
     headers: {
-      // accept: "application/json",
-      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
     body: formData,

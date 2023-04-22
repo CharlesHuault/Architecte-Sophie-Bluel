@@ -147,8 +147,12 @@ header{
     align-self: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     background-color: #FFFFFF;
+}
+
+.fichephoto {
+    margin-left: 6px;
 }
 
 #worksList img {
@@ -171,6 +175,7 @@ header{
     margin-top: 6px;
     padding: 0px;
 }
+
 
 .buttonDelete i {
     font-size: 9px;
