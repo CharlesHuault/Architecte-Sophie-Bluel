@@ -29,7 +29,7 @@ window.onload = () => {
         console.log("réussi!");
         sessionStorage.setItem("token", result.token);
 
-        window.location.href = "/FrontEnd/index.html";
+        window.location.href = "./index.html";
       } else {
         throw new Error("Une Erreur s'est produite !");
       }

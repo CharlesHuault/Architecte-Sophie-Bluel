@@ -3,7 +3,7 @@ import { fetchCategories } from "./Works.js";
 
 // Déconnection et rafraichissement de la page
 const refreshLogOut = () => {
-  document.location.href = "/FrontEnd/index.html";
+  document.location.href = "./index.html";
   sessionStorage.clear();
 };
 
@@ -57,7 +57,6 @@ const openModale = function (e) {
 // Fermeture de la Modale
 
 const closeModale = function (e) {
-  console.log("test");
   if (modale === null) return;
   e.preventDefault();
   modale.style.display = "none";
@@ -104,6 +103,8 @@ const displayModal = (works) => {
 
     const ficheWork = document.createElement("fichePhoto");
     ficheWork.categoryId = fichePhoto.categoryId;
+    ficheWork.className = "fichephoto";
+    ficheWork.setAttribute("id", fichePhoto.id);
 
     const imageWorks = document.createElement("img");
     imageWorks.src = fichePhoto.imageUrl;
@@ -111,19 +112,29 @@ const displayModal = (works) => {
     const titleWorks = document.createElement("p");
     titleWorks.innerText = "éditer";
 
+    const btnMove = document.createElement("button");
+    btnMove.className = "buttonMove";
+
+    const logoArrow = document.createElement("i");
+    logoArrow.className = "fa-solid fa-arrows-up-down-left-right";
+
     const btnDelete = document.createElement("button");
     btnDelete.setAttribute("id", fichePhoto.id);
     btnDelete.className = "buttonDelete";
 
     const logoTrash = document.createElement("i");
-    logoTrash.innerHTML += '<i class="fa-solid fa-trash-can"></i>';
+    logoTrash.className = "fa-solid fa-trash-can";
 
     sectionGallery.appendChild(ficheWork);
+    ficheWork.appendChild(btnMove);
     ficheWork.appendChild(btnDelete);
 
+    btnMove.appendChild(logoArrow);
     btnDelete.appendChild(logoTrash);
     ficheWork.appendChild(imageWorks);
     ficheWork.appendChild(titleWorks);
+
+    btnDelete.addEventListener("click", deleteWork);
   }
 };
 
@@ -131,42 +142,32 @@ const displayModal = (works) => {
 // Suppression de projet
 // ------------------------------------------------
 
-// const deleteClick = document.getElementsByClassName("buttonDelete");
+async function deleteWork(e) {
+  e.preventDefault();
+  const workId = document.querySelector("fichephoto").id;
+  // workId.getAttribute(this.id);
 
-// console.log(deleteWork);
+  console.log(workId);
 
-// deleteClick.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   deleteWork(e);
-// });
-
-// function deleteWork(e) {
-//   const imgId = document.querySelector("buttonDelete");
-//   imgId.getAttribute("id");
-
-//   console.log(imgId);
-
-//   fetch;
-// }
-
-btnDelete.addEventListener("click", async function () {
-  ficheWork.remove();
+  const fetchDelete = {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   const response = await fetch(
-    "http://localhost:5678/api/works/${fichePhoto.id}",
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
+    `http://localhost:5678/api/works/${workId}`,
+    fetchDelete
   );
-  if (!response.ok) {
-    throw new Error("Erreur lors de la suppression");
-  }
-  console.log("Element supprimé");
-});
 
+  if (!response.ok) {
+    throw new Error("Impossible de supprimer");
+  }
+
+  console.log("Image supprimée");
+}
 // ------------------------------------------------
 // Modale Ajout Photo
 // ------------------------------------------------
@@ -208,6 +209,7 @@ for (let i = 0; i < categoriesData.length; i++) {
   const formCategory = document.createElement("option");
   formCategory.innerText = category.name;
   formCategory.dataset.categoryName = category.id;
+  formCategory.value = category.id;
   optionsCategory.appendChild(formCategory);
 }
 
@@ -240,21 +242,23 @@ y.addEventListener("change", loadimage, false);
 // POST de la photo à l'api
 
 let token = sessionStorage.getItem("token");
-console.log(token);
+// console.log(token);
 const formElem = document.getElementById("FormAjout");
-console.log("selectionner form");
+// console.log("selectionner form");
 
 formElem.onsubmit = (e) => {
   e.preventDefault();
 
   const formData = new FormData();
 
-  formData.append("title", document.getElementById("TitrePhoto").value);
+  const newImage = document.getElementById("PhotoAjout").files[0];
   formData.append(
     "image",
-    document.getElementById("PhotoAjout").files[0]
+    newImage
     // document.getElementById("PhotoAjout").files[0].name
   );
+  formData.append("title", document.getElementById("TitrePhoto").value);
+
   formData.append("category", document.getElementById("Categories").value);
 
   console.log(formData);
@@ -262,8 +266,6 @@ formElem.onsubmit = (e) => {
   fetch("http://localhost:5678/api/works/", {
     method: "POST",
     headers: {
-      // accept: "application/json",
-      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
     body: formData,
