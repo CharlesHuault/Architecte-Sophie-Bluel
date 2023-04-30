@@ -209,7 +209,7 @@ header{
     justify-content: center;
 }
 
-.fichephoto:hover + .buttonMove {
+.fichephoto:hover .buttonMove {
     display: block;
 }
 

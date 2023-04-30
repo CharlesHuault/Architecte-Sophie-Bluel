@@ -104,10 +104,7 @@ const displayModal = (works) => {
     const ficheWork = document.createElement("fichePhoto");
     ficheWork.categoryId = fichePhoto.categoryId;
     ficheWork.className = "fichephoto";
-<<<<<<< HEAD
     ficheWork.setAttribute("id", fichePhoto.id);
-=======
->>>>>>> 382b81b2d0251033dd8ec0e11a7e78b823bf76fa
 
     const imageWorks = document.createElement("img");
     imageWorks.src = fichePhoto.imageUrl;
@@ -118,9 +115,6 @@ const displayModal = (works) => {
     const btnMove = document.createElement("button");
     btnMove.className = "buttonMove";
 
-    const logoArrow = document.createElement("i");
-    logoArrow.className = "fa-solid fa-arrows-up-down-left-right";
-
     const btnDelete = document.createElement("button");
     btnDelete.setAttribute("id", fichePhoto.id);
     btnDelete.className = "buttonDelete";
@@ -128,16 +122,20 @@ const displayModal = (works) => {
     const logoTrash = document.createElement("i");
     logoTrash.className = "fa-solid fa-trash-can";
 
-    sectionGallery.appendChild(ficheWork);
-    ficheWork.appendChild(btnMove);
-    ficheWork.appendChild(btnDelete);
+    const logoArrow = document.createElement("i");
+    logoArrow.className = "fa-solid fa-arrows-up-down-left-right";
 
-    btnMove.appendChild(logoArrow);
+    sectionGallery.appendChild(ficheWork);
+
+    ficheWork.appendChild(btnDelete);
+    ficheWork.appendChild(btnMove);
+
     btnDelete.appendChild(logoTrash);
+    btnMove.appendChild(logoArrow);
     ficheWork.appendChild(imageWorks);
     ficheWork.appendChild(titleWorks);
 
-    btnDelete.addEventListener("click", deleteWork);
+    btnDelete.addEventListener("click", (e) => deleteWork(fichePhoto.id, e));
   }
 };
 
@@ -145,20 +143,11 @@ const displayModal = (works) => {
 // Suppression de projet
 // ------------------------------------------------
 
-<<<<<<< HEAD
-async function deleteWork(e) {
+async function deleteWork(workId, e) {
   e.preventDefault();
-  const workId = document.querySelector("fichephoto").id;
-  // workId.getAttribute(this.id);
-=======
-const btnTest = document.getElementsByClassName("buttonDelete");
-displayModal(btnTest.addEventListener("click", console.log("Test")));
-// const deleteClick = document.getElementsByClassName("buttonDelete");
->>>>>>> 382b81b2d0251033dd8ec0e11a7e78b823bf76fa
 
   console.log(workId);
 
-<<<<<<< HEAD
   const fetchDelete = {
     method: "DELETE",
     headers: {
@@ -171,47 +160,6 @@ displayModal(btnTest.addEventListener("click", console.log("Test")));
     `http://localhost:5678/api/works/${workId}`,
     fetchDelete
   );
-=======
-// deleteClick.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   deleteWork(e);
-// });
-
-// function deleteWork(e) {
-//   const imgId = document.querySelector("buttonDelete");
-//   imgId.getAttribute("id");
-
-//   console.log(imgId);
-
-//   fetch;
-// }
-// ----------------------------------------------
-
-// async function () {
-//   ficheWork.remove();
-
-//   const response = await fetch(
-//     "http://localhost:5678/api/works/${fichePhoto.id}",
-//     {
-//       method: "DELETE",
-//       headers: {
-//         "Content-type": "application/JSON",
-
-//         Authorization: `Bearer ${token}`,
-//       },
-//     }
-//   );
-//   if (!response.ok) {
-//     throw new Error("Erreur lors de la suppression");
-//   }
-//   console.log("Element supprimé");
-// });
-// });
-
-// document.querySelector("suppPhoto").addEventListener("click", function () {
-//   fichePhoto.remove();
-// });
->>>>>>> 382b81b2d0251033dd8ec0e11a7e78b823bf76fa
 
   if (!response.ok) {
     throw new Error("Impossible de supprimer");
