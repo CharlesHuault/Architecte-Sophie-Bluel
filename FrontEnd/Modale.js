@@ -1,5 +1,4 @@
-import { fetchProjets } from "./Works.js";
-import { fetchCategories } from "./Works.js";
+import { fetchProjets, fetchCategories, afficherAllProjets } from "./Works.js";
 
 // Déconnection et rafraichissement de la page
 const refreshLogOut = () => {
@@ -23,11 +22,11 @@ const logout = document.querySelector("#login");
 
 logout.addEventListener("click", refreshLogOut);
 
-// ----------------------------------------
+// ----------------------------------------------------------------------------
 // Modale
-// ----------------------------------------
+// ----------------------------------------------------------------------------
 
-// ---------------------------------------------
+// ----------------------------------------------------------------------------
 // Ouverture de la Modale
 
 const openModale = function (e) {
@@ -37,23 +36,15 @@ const openModale = function (e) {
   target.removeAttribute("aria-hidden");
   target.setAttribute("aria-modale", "true");
   modale = target;
-  // modale.addEventListener("click", closeModale);
-  // modale
-  //   .querySelector(".js-closeModale")
-  //   .addEventListener("click", closeModale);
   const closeButtons = modale.querySelectorAll(".js-closeModale");
   closeButtons.forEach(function (button) {
     button.addEventListener("click", closeModale);
   });
 
-  modale
-    .querySelector(".js-stopModale")
-    .addEventListener("click", stopPropagation);
-
   document.getElementById("contenu-modale2").style.display = "none";
 };
 
-// -------------------------------------------
+// ----------------------------------------------------------------------------
 // Fermeture de la Modale
 
 const closeModale = function (e) {
@@ -66,16 +57,16 @@ const closeModale = function (e) {
   modale
     .querySelector(".js-closeModale")
     .removeEventListener("click", closeModale);
-  modale
-    .querySelector(".js-stopModale")
-    .removeEventListener("click", stopPropagation);
+
   document.getElementById("contenu-modale").style.display = "";
 
   modale = null;
 };
-
-const stopPropagation = function (e) {
-  e.stopPropagation();
+const modal = document.getElementById("Modale1");
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 };
 
 document.querySelectorAll(".js-modale").forEach((a) => {
@@ -84,7 +75,7 @@ document.querySelectorAll(".js-modale").forEach((a) => {
 
 let modale = null;
 
-// -------------------------------------------
+// --------------------------------------------------------------------------
 // Modale Galerie Photo
 
 const mainFunction = async () => {
@@ -139,14 +130,12 @@ const displayModal = (works) => {
   }
 };
 
-// ------------------------------------------------
+// ------------------------------------------------------------------------------------
 // Suppression de projet
-// ------------------------------------------------
+// ------------------------------------------------------------------------------------
 
 async function deleteWork(workId, e) {
   e.preventDefault();
-
-  console.log(workId);
 
   const fetchDelete = {
     method: "DELETE",
@@ -165,11 +154,16 @@ async function deleteWork(workId, e) {
     throw new Error("Impossible de supprimer");
   }
 
-  console.log("Image supprimée");
+  document.getElementById("worksList").innerHTML = "";
+  document.getElementById("gallery").innerHTML = "";
+  mainFunction();
+
+  const workData = await fetchProjets();
+  afficherAllProjets(workData);
 }
-// ------------------------------------------------
+// -------------------------------------------------------------------------------------
 // Modale Ajout Photo
-// ------------------------------------------------
+// -------------------------------------------------------------------------------------
 
 const ajoutPhoto = document.getElementById("ajoutPhoto");
 
@@ -178,6 +172,9 @@ ajoutPhoto.addEventListener("click", (e) => {
   e.preventDefault();
   document.getElementById("contenu-modale").style.display = "none";
   document.getElementById("contenu-modale2").style.display = "block";
+  document.getElementById("prevPhoto").style.display = "none";
+  document.getElementById("noPhoto").style.display = "flex";
+  document.getElementById("PhotoAjout").value = "";
 });
 
 // Flèche de retour vers première page de modale
@@ -197,7 +194,6 @@ const optionsCategory = document.querySelector("#Categories");
 const formOptions = document.createElement("option");
 formOptions.disabled = true;
 formOptions.selected = true;
-formOptions.value = "1";
 formOptions.text = "";
 
 optionsCategory.add(formOptions, null);
@@ -224,6 +220,7 @@ function imageHandler(e2) {
   const store = document.getElementById("prevPhoto");
   store.innerHTML = '<img src="' + e2.target.result + '">';
   document.getElementById("noPhoto").style.display = "none";
+  document.getElementById("prevPhoto").style.display = "flex";
 }
 
 function loadimage(e1) {
@@ -241,9 +238,7 @@ y.addEventListener("change", loadimage, false);
 // POST de la photo à l'api
 
 let token = sessionStorage.getItem("token");
-// console.log(token);
 const formElem = document.getElementById("FormAjout");
-// console.log("selectionner form");
 
 formElem.onsubmit = (e) => {
   e.preventDefault();
@@ -251,16 +246,10 @@ formElem.onsubmit = (e) => {
   const formData = new FormData();
 
   const newImage = document.getElementById("PhotoAjout").files[0];
-  formData.append(
-    "image",
-    newImage
-    // document.getElementById("PhotoAjout").files[0].name
-  );
+  formData.append("image", newImage);
   formData.append("title", document.getElementById("TitrePhoto").value);
 
   formData.append("category", document.getElementById("Categories").value);
-
-  console.log(formData);
 
   fetch("http://localhost:5678/api/works/", {
     method: "POST",
@@ -270,11 +259,23 @@ formElem.onsubmit = (e) => {
     body: formData,
   }).then(async (res) => {
     e.preventDefault();
+
     if (res.ok) {
-      location.replace("index.html");
       console.log("fichier envoyé");
+      document.getElementById("worksList").innerHTML = "";
+      document.getElementById("gallery").innerHTML = "";
+
+      mainFunction();
+      document.getElementById("contenu-modale").style.display = "";
+      document.getElementById("contenu-modale2").style.display = "none";
+
+      const workData = await fetchProjets();
+      afficherAllProjets(workData);
     } else {
-      alert("fichier refusé");
+      alert("Ajouter une image");
     }
   });
+
+  document.getElementById("PhotoAjout").value = "";
+  document.getElementById("noPhoto").style.display = "";
 };

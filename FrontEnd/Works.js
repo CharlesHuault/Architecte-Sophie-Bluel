@@ -46,11 +46,10 @@ export const fetchCategories = async () => {
   return categoriesData;
 };
 
-const afficherAllProjets = (projets) => {
+export const afficherAllProjets = (projets) => {
   // Fonction gérant le focus des boutons filtres
   const btnTous = document.querySelector(`[data-id="-1"]`);
   btnTous.classList.add("button_focus");
-  // document.getElementById("gallery").innerHTML = ""; // Efface les fiches déjà affichées pour revenir à zéro
   for (let i = 0; i < projets.length; i++) {
     // Boucle créant la fiche a partir de zéro en créant l'image et le texte a partir de l'API
     const fiche = projets[i];

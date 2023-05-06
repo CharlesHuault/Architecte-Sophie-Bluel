@@ -147,7 +147,6 @@ header{
     align-self: center;
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-between; */
     background-color: #FFFFFF;
 }
 
@@ -241,6 +240,7 @@ header{
 
 #backToList {
     margin: 37px;
+    color: black    ;
 }
 
 #photo {

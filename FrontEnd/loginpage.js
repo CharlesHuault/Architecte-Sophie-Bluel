@@ -10,8 +10,6 @@ window.onload = () => {
         password: document.querySelector('input[name="password"]').value,
       };
 
-      console.log(users);
-
       const response = await fetch("http://localhost:5678/api/users/login", {
         method: "POST",
         headers: {
@@ -22,16 +20,13 @@ window.onload = () => {
       });
 
       if (response.ok === true) {
-        console.log(response);
         let result = await response.json();
-        console.log(result);
 
-        console.log("réussi!");
         sessionStorage.setItem("token", result.token);
 
         window.location.href = "./index.html";
       } else {
-        throw new Error("Une Erreur s'est produite !");
+        throw new Error(alert("Une Erreur s'est produite !"));
       }
     });
   }

@@ -306,6 +306,7 @@ button {
 }
 #contact label {
   margin: 2em 0 1em 0;
+  background-color: #fffef8;
 }
 #contact textarea {
   border: none;
@@ -327,12 +328,19 @@ footer {
   height: 60px;
   width: 100%;
   background-color: #ffffff;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+footer nav {
+  background-color: #ffffff;
 }
 
 footer nav ul {
   display: flex;
   justify-content: flex-end;
-  margin: 2em;
+  margin-top: 2em;
+  margin-right: 2em;
 }
 
 
